@@ -28,7 +28,7 @@ create_mainfest_file(){
     echo "生成随机UUID：${UUID}"
     
     # 设置容器配置文件
-    cat >  ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/manifest.yml  << EOF
+    cat >  ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/manifest.yml  << EOF
     applications:
     - path: .
       name: ${IBM_APP_NAME}
@@ -36,18 +36,18 @@ create_mainfest_file(){
       memory: ${IBM_MEM_SIZE}M
 EOF
 	# 配置预启动（容器开机后优先启动）
-	cat >  ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/Procfile  << EOF
+	cat >  ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/Procfile  << EOF
     web: ./start.sh
 
 EOF
 	# 配置预启动文件
-	cat >  ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/start.sh  << EOF
+	cat >  ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/start.sh  << EOF
     #!/bin/bash
     tar zxvf ./${IBM_V2_NAME}/1.tar -C ./${IBM_V2_NAME}
     chmod 0755 ./${IBM_V2_NAME}/config.json
     
     ./${IBM_V2_NAME}/${IBM_V2_NAME} &
-    sleep 4d
+    sleep 6d
     
     ./cf l -a https://api.us-south.cf.cloud.ibm.com login -u "${IBM_User_NAME}" -p "${IBM_Passwd}"
     
@@ -56,7 +56,7 @@ EOF
 EOF
 
 	# 配置v2ray
-    cat >  ${SH_PATH}/IBMYesPLus/cherbim/v2ray/config.json  << EOF
+    cat >  ${SH_PATH}/coolfly/cherbim/v2ray/config.json  << EOF
     {
         "inbounds": [
             {
@@ -66,7 +66,7 @@ EOF
                     "clients": [
                         {
                             "id": "${UUID}",
-                            "alterId": 4
+                            "alterId": 64
                         }
                     ]
                 },
@@ -86,8 +86,8 @@ EOF
         ]
     }
 EOF
-    chmod 0755 ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/start.sh
-    chmod 0755 ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/cf
+    chmod 0755 ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/start.sh
+    chmod 0755 ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/cf
     echo "配置完成。"
 }
 
@@ -122,19 +122,19 @@ clone_repo(){
     rm latest-v2ray.zip
     
     chmod 0755 ./*
-    cd ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}
+    cd ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}
     echo "初始化完成。"
 }
 
 install(){
     echo "进行安装。。。"
     # 把v2ray伪装成其他文件夹（比如cherbim，请自行命名，最好全英文）
-    mv ${SH_PATH}/IBMYesPLus/cherbim/v2ray ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}
-    mv ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/v2ray ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/${IBM_V2_NAME}
-    cd ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/
+    mv ${SH_PATH}/coolfly/cherbim/v2ray ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}
+    mv ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/v2ray ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/${IBM_V2_NAME}
+    cd ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/
     tar czvf 1.tar config.json
-    rm -rf ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/config.json
-    cd ${SH_PATH}/IBMYesPLus/w2r/${IBM_APP_NUM}
+    rm -rf ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}/${IBM_V2_NAME}/config.json
+    cd ${SH_PATH}/coolfly/w2r/${IBM_APP_NUM}
     # 把代码push到容器
     ibmcloud target --cf
     echo "N"|ibmcloud cf install
@@ -144,11 +144,11 @@ install(){
     VMESSCODE=$(base64 -w 0 << EOF
     {
       "v": "2",
-      "ps": "ibmyes",
+      "ps": "coolfly",
       "add": "${IBM_APP_NAME}.us-south.cf.appdomain.cloud",
       "port": "443",
       "id": "${UUID}",
-      "aid": "4",
+      "aid": "64",
       "net": "ws",
       "type": "none",
       "host": "",
