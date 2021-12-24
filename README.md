@@ -1,12 +1,4 @@
-# IBMYesPlus
-
-#### 更新说明
-
-**20200928更新，感觉凉凉，我7个账号都被封了，包含部分未使用账号**
-
-~~**20200919更新 可以继续happy了，新开账号可以开免费容器了**~~
-
-~~**20200916更新 诸位珍惜自己的账号，新开的IBM账号已经不能开免费套餐了，旧账号目前仍可以删除容器重建**~~
+# coolflys
 
 上一个版本代码已经不能用了，IBM检测config.json文件，通过压缩文件后上传再解压，继续快乐！
 
@@ -21,23 +13,7 @@ PS：已经安装的不受影响，可以忽略，此脚本只针对新安装的
 3. 修改生成v2配置代码，vmess自动包含域名，压缩config.json文件，跳过IBM最新验证
 4. 更新部分操作步骤说明
 
- ~~20200910更新~~：
-
-~~整理IBMYes代码，删除多余内容，并做适当更新，主要改动如下：~~
-
-1. ~~增加自动重命名代码，跳过IBM代码审核（修改v2ray名称以跳过代码审核，不知道能稳定多久，能快乐一天是一天）~~
-
-2. ~~容器环境请随意选择，不要对着go疯狂的撸，已测试大部分环境均适用（亲测Python支持除了tomcat之外所有环境，go测试了java python go swift适用，其他没测试）~~
-
-3. ~~验证是否成功方式：域名/随机生成的websocker路径 ，显示Bad Requests就表示正常使用~~
-
-4. ~~v2配置做了修改，增加websocker路径，vmsess链接里无需删除随机路径~~
-
-    
-
-
-
-
+ 
 
 #### 使用说明
 
@@ -60,7 +36,7 @@ PS：已经安装的不受影响，可以忽略，此脚本只针对新安装的
 1. 运行一键伪装代码，按照提示输入以下参数
 
     ~~~
-    wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/w2r/IBMYesPlus/master/install.sh && chmod +x install.sh  && ./install.sh
+    wget --no-check-certificate -O install.sh https://raw.githubusercontent.com/huacong1/coolfly/master/install.sh && chmod +x install.sh  && ./install.sh
     
     # 安装步骤
     用户名称—>个人邮箱
